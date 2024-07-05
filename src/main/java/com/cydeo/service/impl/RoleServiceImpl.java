@@ -1,7 +1,6 @@
 package com.cydeo.service.impl;
 
 import com.cydeo.dto.RoleDTO;
-import com.cydeo.entity.Role;
 import com.cydeo.mapper.MapperUtil;
 import com.cydeo.mapper.RoleMapper;
 import com.cydeo.repository.RoleRepository;
@@ -26,18 +25,13 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<RoleDTO> listAllRoles() {
-        List<Role> roleList = roleRepository.findAll();
-//        return roleList.stream().map(roleMapper::convertToDto).collect(Collectors.toList());
-        return roleList.stream().map(role -> mapperUtil.convert(role, new RoleDTO())).collect(Collectors.toList());
-//        return roleList.stream().map(role -> mapperUtil.convert(role, RoleDTO.class)).collect(Collectors.toList());
+        return roleRepository.findAll().stream()
+                .map(role -> mapperUtil.convert(role,new RoleDTO()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public RoleDTO findById(Long id) {
-
-
-
-
         return roleMapper.convertToDto(roleRepository.findById(id).get());
     }
 }

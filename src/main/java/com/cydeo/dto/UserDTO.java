@@ -14,14 +14,6 @@ public class UserDTO {
 
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @NotBlank
     @Size(max = 15, min = 2)
     private String firstName;
@@ -38,8 +30,8 @@ public class UserDTO {
     @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,}")
     private String passWord;
 
-    @NotNull
-    private String confirmPassWord;
+    @NotBlank
+    private String confirmPassword;
 
     private boolean enabled;
 
@@ -53,6 +45,22 @@ public class UserDTO {
     @NotNull
     private Gender gender;
 
+    public void checkConfirmPassword(){
+        if(this.passWord == null || this.confirmPassword == null){
+            return;
+        } else if (!this.passWord.equals(this.confirmPassword)) {
+            this.confirmPassword = null;
+        }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getPassWord() {
         return passWord;
     }
@@ -62,21 +70,13 @@ public class UserDTO {
         checkConfirmPassword();
     }
 
-    public String getConfirmPassWord() {
-        return confirmPassWord;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setConfirmPassWord(String confirmPassWord) {
-        this.confirmPassWord = confirmPassWord;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
         checkConfirmPassword();
-    }
-
-    private void checkConfirmPassword() {
-        if (this.passWord == null || this.confirmPassWord == null) {
-            return;
-        } else if (!this.passWord.equals(this.confirmPassWord)) {
-            this.confirmPassWord = null;
-        }
     }
 
     public String getFirstName() {
@@ -134,5 +134,4 @@ public class UserDTO {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-
 }

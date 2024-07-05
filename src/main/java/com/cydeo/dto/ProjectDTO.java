@@ -1,4 +1,5 @@
 package com.cydeo.dto;
+
 import com.cydeo.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,5 +51,4 @@ public class ProjectDTO {
         this.projectDetail = projectDetail;
         this.projectStatus = projectStatus;
     }
-
 }

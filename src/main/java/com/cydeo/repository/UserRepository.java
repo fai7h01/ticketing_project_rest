@@ -12,10 +12,9 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     User findByUserNameAndIsDeleted(String username, Boolean deleted);
 
-
     @Transactional
     void deleteByUserName(String username);
 
-    List<User> findByRoleDescriptionIgnoreCaseAndIsDeleted(String description, Boolean deleted);
+    List<User> findAllByRoleDescriptionIgnoreCaseAndIsDeleted(String description, Boolean deleted);
 
 }

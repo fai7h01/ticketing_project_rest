@@ -12,23 +12,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-//@Where(clause = "is_deleted=false")         // SELECT * FROM users WHERE id = 4 AND is_deleted = false;
-public class User extends BaseEntity {
+//@SQLRestriction("is_deleted is false")
+public class User extends BaseEntity{
 
     private String firstName;
     private String lastName;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String userName;
 
-    @Column(nullable = false)
+    @Column(name = "password")
     private String passWord;
-
     private boolean enabled;
     private String phone;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
     private Role role;
 
     @Enumerated(EnumType.STRING)

@@ -1,15 +1,17 @@
 package com.cydeo.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @MappedSuperclass
 public class BaseEntity {
 
@@ -17,19 +19,19 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, updatable = false)
+    private Boolean isDeleted = false;
+
+    @Column(nullable = false,updatable = false)
     private LocalDateTime insertDateTime;
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false,updatable = false)
     private Long insertUserId;
     @Column(nullable = false)
     private LocalDateTime lastUpdateDateTime;
     @Column(nullable = false)
     private Long lastUpdateUserId;
 
-    private Boolean isDeleted = false;
-
     @PrePersist
-    public void onPrePersist() {
+    private void onPrePersist(){
         this.insertDateTime = LocalDateTime.now();
         this.lastUpdateDateTime = LocalDateTime.now();
         this.insertUserId = 1L;
@@ -37,7 +39,7 @@ public class BaseEntity {
     }
 
     @PreUpdate
-    public void onPreUpdate() {
+    private void onPreUpdate(){
         this.lastUpdateDateTime = LocalDateTime.now();
         this.lastUpdateUserId = 1L;
     }
