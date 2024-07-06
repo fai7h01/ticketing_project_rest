@@ -56,7 +56,7 @@ public class TaskController {
         return ResponseEntity.ok(new ResponseWrapper("Task list is successfully retrieved", tasks, HttpStatus.OK));
     }
 
-    @PostMapping("/employee/update")
+    @PutMapping("/employee/update")
     public ResponseEntity<ResponseWrapper> employeeUpdateTasks(@RequestBody TaskDTO taskDTO) {
         taskService.update(taskDTO);
         return ResponseEntity.ok(new ResponseWrapper("Task is successfully updated", HttpStatus.OK));
