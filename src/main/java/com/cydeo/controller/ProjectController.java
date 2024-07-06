@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/project")
+@RequestMapping(value = "/api/v1/project")
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -49,13 +49,13 @@ public class ProjectController {
         return ResponseEntity.ok(new ResponseWrapper("Project is successfully deleted", HttpStatus.OK));
     }
 
-    @GetMapping
+    @GetMapping("/manager/project-status")
     public ResponseEntity<ResponseWrapper> getProjectByManager() {
         List<ProjectDTO> projects = projectService.listAllProjectDetails();
         return ResponseEntity.ok(new ResponseWrapper("Project list is successfully retrieved", projects, HttpStatus.OK));
     }
 
-    @GetMapping("/{projectCode}")
+    @GetMapping("/manager/complete/{projectCode}")
     public ResponseEntity<ResponseWrapper> managerCompleteProject(@PathVariable("projectCode") String code) {
         projectService.complete(code);
         return ResponseEntity.ok(new ResponseWrapper("Project is successfully completed", HttpStatus.OK));
