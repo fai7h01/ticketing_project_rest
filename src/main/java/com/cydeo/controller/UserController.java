@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<ResponseWrapper> createUser(@RequestBody UserDTO user) {
         userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("User is successfully created",HttpStatus.CREATED));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("User is created successfully",HttpStatus.CREATED));
     }
 
     @PutMapping
