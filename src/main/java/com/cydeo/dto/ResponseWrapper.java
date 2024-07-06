@@ -5,7 +5,8 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResponseWrapper {
 
     private boolean success;
