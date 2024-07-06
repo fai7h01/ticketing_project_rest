@@ -55,7 +55,7 @@ public class ProjectController {
         return ResponseEntity.ok(new ResponseWrapper("Project list is successfully retrieved", projects, HttpStatus.OK));
     }
 
-    @GetMapping("/manager/complete/{projectCode}")
+    @PutMapping("/manager/complete/{projectCode}")
     public ResponseEntity<ResponseWrapper> managerCompleteProject(@PathVariable("projectCode") String code) {
         projectService.complete(code);
         return ResponseEntity.ok(new ResponseWrapper("Project is successfully completed", HttpStatus.OK));
