@@ -22,7 +22,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<ResponseWrapper> getUsers() {
         List<UserDTO> users = userService.listAllUsers();
-        return ResponseEntity.ok(new ResponseWrapper("User list successfully retrieved",users,HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("User list successfully retrieved", users, HttpStatus.OK));
     }
 
     @GetMapping("/{username}")
@@ -34,18 +34,18 @@ public class UserController {
     @PostMapping
     public ResponseEntity<ResponseWrapper> createUser(@RequestBody UserDTO user) {
         userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("User is successfully created",HttpStatus.CREATED));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("User is successfully created", HttpStatus.CREATED));
     }
 
     @PutMapping
     public ResponseEntity<ResponseWrapper> updateUser(@RequestBody UserDTO user) {
         userService.update(user);
-        return ResponseEntity.ok(new ResponseWrapper("User is successfully updated",HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("User is successfully updated", HttpStatus.OK));
     }
 
     @DeleteMapping("/{username}")
     public ResponseEntity<ResponseWrapper> deleteUser(@PathVariable("username") String username) {
         userService.delete(username);
-        return ResponseEntity.ok(new ResponseWrapper("User is successfully deleted",HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("User is successfully deleted", HttpStatus.OK));
     }
 }
