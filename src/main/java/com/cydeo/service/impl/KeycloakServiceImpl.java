@@ -41,7 +41,7 @@ public class KeycloakServiceImpl implements KeycloakService {
         keycloakUser.setFirstName(userDTO.getFirstName());
         keycloakUser.setLastName(userDTO.getLastName());
         keycloakUser.setEmail(userDTO.getUserName());
-        keycloakUser.setCredentials(List.of(credential));
+        keycloakUser.setCredentials(asList(credential));
         keycloakUser.setEmailVerified(true);
         keycloakUser.setEnabled(true);
 
@@ -62,7 +62,7 @@ public class KeycloakServiceImpl implements KeycloakService {
                 .roles().get(userDTO.getRole().getDescription()).toRepresentation();
 
         realmResource.users().get(userId).roles().clientLevel(appClient.getId())
-                .add(List.of(userClientRole));
+                .add(asList(userClientRole));
 
 
         keycloak.close();
