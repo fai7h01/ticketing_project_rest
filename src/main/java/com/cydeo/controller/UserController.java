@@ -25,7 +25,7 @@ public class UserController {
 
     @GetMapping
     @RolesAllowed({"Admin", "Manager"})
-    @Operation(summary = "Get Users")
+    @Operation(summary = "Get User list")
     public ResponseEntity<ResponseWrapper> getUsers() {
         List<UserDTO> users = userService.listAllUsers();
         return ResponseEntity.ok(new ResponseWrapper("User list successfully retrieved", users, HttpStatus.OK));
