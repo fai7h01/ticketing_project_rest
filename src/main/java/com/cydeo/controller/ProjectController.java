@@ -1,5 +1,6 @@
 package com.cydeo.controller;
 
+import com.cydeo.annotation.ExecutionTime;
 import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.ResponseWrapper;
 import com.cydeo.service.ProjectService;
@@ -23,6 +24,7 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
+    @ExecutionTime
     @GetMapping
     @RolesAllowed("Manager")
     @Operation(summary = "Get Project list")
