@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -34,7 +34,7 @@ class ProjectControllerTest {
     @BeforeAll
     static void setUp(){
 
-        token = "Bearer " +  "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3cWVHRTBadGJDRjlmdW8wZGxPcV81SnFxT1RBcGVleEtXZEptQXgtdjFBIn0.eyJleHAiOjE3MjI4ODE2OTEsImlhdCI6MTcyMjg4MTM5MSwianRpIjoiMzMwOWRlM2YtYjJhZi00MmNkLTgyMjQtMmJlMDRhYzE3NDlkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL2N5ZGVvLWRldiIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMjAxZTI3Zi0yNmVhLTRmMDAtOGZiMi0yY2FjM2ZjYWVjZDQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ0aWNrZXRpbmctYXBwIiwic2Vzc2lvbl9zdGF0ZSI6ImU5MDZkYmIzLTFkNmItNDQ5NS04NWVhLTllNmFhNmU5MmE2ZCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDgxIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtY3lkZW8tZGV2IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ0aWNrZXRpbmctYXBwIjp7InJvbGVzIjpbIk1hbmFnZXIiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJzaWQiOiJlOTA2ZGJiMy0xZDZiLTQ0OTUtODVlYS05ZTZhYTZlOTJhNmQiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoibHVrYSJ9.g93WDYwxplMM5JicvkVnn40UwW20rvDJzKmlpZ5bIaanJh9ednjm8XJpeaULbppXVbPjdLxMHFqQP9_R5IvajX4VKsZ498i0H0Hzw5LkqtdvvKc3TaRG_iC-iG9-YxK029xuoP4qCkayjcENxyNDa9cqVUQbPdCAdIhKlKRR-ajhaKMkpaoGzNLQIVT6PT7Pqv6cTzVYZ5IcIj87lpGnuL5qonZxahwiPs64Blgn70bnvRdDa0wXfyoMJU0gCe-jeieNTuOEG9CrWNiLYs9iVv6NQb9iBJDRKY31wE9bQSGEiX7z4qbqZJPJZOOn_Tago-fxhZlW1cET4zlTmpgndA";
+        token = "Bearer " + "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3cWVHRTBadGJDRjlmdW8wZGxPcV81SnFxT1RBcGVleEtXZEptQXgtdjFBIn0.eyJleHAiOjE3MjI5NjkyMjksImlhdCI6MTcyMjk1MTIyOCwianRpIjoiZDI3MDI0ZTUtNTE4YS00ZTM4LTkyYTMtNjJiM2M0NDkwOTVjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL2N5ZGVvLWRldiIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMjAxZTI3Zi0yNmVhLTRmMDAtOGZiMi0yY2FjM2ZjYWVjZDQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ0aWNrZXRpbmctYXBwIiwic2Vzc2lvbl9zdGF0ZSI6IjRjMzVmNDdjLTM3OWMtNDkwZC1iMDg5LTQ5M2UxM2ZhOTNlNCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDgxIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtY3lkZW8tZGV2IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ0aWNrZXRpbmctYXBwIjp7InJvbGVzIjpbIk1hbmFnZXIiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJzaWQiOiI0YzM1ZjQ3Yy0zNzljLTQ5MGQtYjA4OS00OTNlMTNmYTkzZTQiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoibHVrYSJ9.LlGo-jFVj7DWsdaNZMXCq9VQC74o3c8-RL9tspTSrY2qfADKWwIEiEoMSCxA-jAhBkqemu66llI_UfJXbVX9aDjmrLnDzswzYMsWq5jXz6HckC88UvFVREerNWrXHZGXr2jpjNQteARvf_-ekOod9QY6WcU9PE3d0UaPuUQf7Lzu8mVcgCbXoSADy7xM34wz9oBFTBnywAHY4Ycky8DzeYYV1HzNyDQuKr7AEuI1eS1_8cIJhyCCDNafir06du7YU-YGnBXu7zifK0xG5X5wsPLVaqtKGwPec0hk1My81WejyINQ07TIUoTsrcmCmLL-Piu1nWEc-H2W5WGmlZe5dw";
 
         manager = new UserDTO(
                 2L,
@@ -70,7 +70,12 @@ class ProjectControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/api/v1/project")
                 .header("Authorization", token)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].projectCode").exists())
+                .andExpect(jsonPath("$.data[0].assignedManager.userName").exists())
+                .andExpect(jsonPath("$.data[0].assignedManager.userName").isNotEmpty())
+                .andExpect(jsonPath("$.data[0].assignedManager.userName").isString())
+                .andExpect(jsonPath("$.data[0].assignedManager.userName").value("ozzy"));
     }
 
 }
