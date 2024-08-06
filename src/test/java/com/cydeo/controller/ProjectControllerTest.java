@@ -5,6 +5,10 @@ import com.cydeo.dto.RoleDTO;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.enums.Gender;
 import com.cydeo.enums.Status;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +80,37 @@ class ProjectControllerTest {
                 .andExpect(jsonPath("$.data[0].assignedManager.userName").isNotEmpty())
                 .andExpect(jsonPath("$.data[0].assignedManager.userName").isString())
                 .andExpect(jsonPath("$.data[0].assignedManager.userName").value("ozzy"));
+    }
+
+    @Test
+    void givenToken_createProject() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.post("/api/v1/project")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(toJsonString(project)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.message").value("Project is successfully created"));
+    }
+
+    @Test
+    void givenToken_updateToken() throws Exception {
+        project.setProjectName("API Project-2");
+
+        mvc.perform(MockMvcRequestBuilders.put("/api/v1/project")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(toJsonString(project)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Project is successfully updated"));
+    }
+
+    private String toJsonString(final Object obj) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper.writeValueAsString(obj);
     }
 
 }
