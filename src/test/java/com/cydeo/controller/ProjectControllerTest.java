@@ -106,6 +106,19 @@ class ProjectControllerTest {
                 .andExpect(jsonPath("$.message").value("Project is successfully updated"));
     }
 
+
+    @Test
+    void givenToken_deleteProject() throws Exception {
+
+        mvc.perform(MockMvcRequestBuilders.delete("/api/v1/project/" + project.getProjectCode())
+                .header("Authorization", token)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Project is successfully deleted"));
+    }
+
+
+
     private String toJsonString(final Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
